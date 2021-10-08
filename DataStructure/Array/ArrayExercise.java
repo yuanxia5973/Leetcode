@@ -1,3 +1,19 @@
+
+// ######  1. 两数之和
+// 最优解
+public static int[] twoSum(int[] nums, int target) {
+      HashMap<Integer, Integer> currentNums = new HashMap<>();
+      for (int i = 0; i < nums.length; i++) {
+          int i1 = target - nums[i];
+          if (currentNums.containsKey(i1)) {
+              Integer integer = currentNums.get(i1);
+              return new int[]{integer, i};
+          }
+          currentNums.put(nums[i], i);
+      }
+      return new int[0];
+}
+
 // ######  53. 最大子序和
 // 最优解
 public int maxSubArrayA(int[] nums) {
@@ -12,6 +28,16 @@ public int maxSubArrayA(int[] nums) {
       }
       return res;
 }
+
+// ######  88. 合并两个有序数组
+// 最优解
+public void merge(int[] nums1, int m, int[] nums2, int n) {
+for (int i = 0; i < nums2.length; i++) {
+            nums1[m + i] = nums2[i];
+        }
+        Arrays.sort(nums1);
+}
+
 
 //自己理解，但数组过大 会超时
 public static int maxSubArrayB(int[] nums) {
