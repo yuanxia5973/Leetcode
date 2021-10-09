@@ -58,6 +58,34 @@ public static int maxSubArrayB(int[] nums) {
        return maxNumSub;
 }
 
+//121 . 买卖股票的最佳时机
+//目前解 有问题 代优化
+public static int maxProfit(int[] prices) {
+      int maxValues = Math.max(prices[0], prices[1]);
+      int maxValuesPosition = prices[0] > prices[1] ? 0 : 1;
+      int minValues = Math.min(prices[0], prices[1]);
+      int minValuesPosition = prices[0] < prices[1] ? 0 : 1;
+      for (int i = 1; i < prices.length - 1; i++) {
+          if (prices[i] > maxValues) {
+              maxValues = prices[i];
+              maxValuesPosition = i;
+          } else if (prices[i] < minValues) {
+              if (i > maxValuesPosition) {
+                  maxValues = Math.max(prices[i], prices[i + 1]);
+                  maxValuesPosition = prices[i] > prices[i + 1] ? i : i + 1;
+                  minValues = Math.min(prices[i], prices[i + 1]);
+                  minValuesPosition = prices[i] < prices[i + 1] ? i : i + 1;
+              } else {
+                  minValues = prices[i];
+                  minValuesPosition = i;
+              }
+
+          }
+      }
+      System.out.println("maxValues " + maxValues + "maxValuesPosition " + maxValuesPosition);
+      System.out.println("minValues " + minValues + "minValuesPosition " + minValuesPosition);
+      return maxValues - minValues;
+  }
 
 // ######  217. 存在重复元素
 // 最易理解
@@ -90,4 +118,30 @@ public boolean containsDuplicateC(int[] nums) {
             }
         }
         return false;
+}
+
+// ###### 350两个数组的交集 II
+// 易理解
+public static int[] intersect(int[] nums1, int[] nums2) {
+    if (nums2.length > nums1.length) {
+        return intersect(nums2, nums1);
+    }
+    List<Integer> list1 = new ArrayList<>();
+    for (int num : nums1) {
+        list1.add(num);
+    }
+    List<Integer> list2 = new ArrayList<>();
+    for (int num : nums2) {
+        if (list1.contains(num)) {
+            list2.add(num);
+            // 从 list1 除去已匹配的数值
+            list1.remove(Integer.valueOf(num));
+        }
+    }
+    int[] res = new int[list2.size()];
+    int i = 0;
+    for (int num : list2) {
+        res[i++] = num;
+    }
+    return res;
 }
